@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Floating Form</title>
+</head>
+<body>
+    <script>
+        // Open the modified index-new.html file to test the floating form
+        window.open('index-new.html', '_blank');
+        
+        // Display test instructions
+        document.body.innerHTML = `
+            <div style="padding: 20px; font-family: Arial, sans-serif;">
+                <h1>Testing Floating Contact Form</h1>
+                <p>The index-new.html file should now open in a new tab.</p>
+                <p><strong>Test Instructions:</strong></p>
+                <ul>
+                    <li>Scroll up and down the page</li>
+                    <li>Verify that the "🚀 체험단 연결 신청하기" form stays fixed on the right side</li>
+                    <li>Check that it remains centered vertically while scrolling</li>
+                    <li>Test on both desktop and mobile view (resize browser window)</li>
+                    <li>Ensure the form is functional and clickable</li>
+                </ul>
+                <p><strong>Expected Behavior:</strong></p>
+                <ul>
+                    <li>Form should float on the right side of the screen</li>
+                    <li>Should follow along when scrolling (sticky behavior)</li>
+                    <li>Should be vertically centered at all times</li>
+                    <li>Should be responsive on mobile devices</li>
+                </ul>
+            </div>
+        `;
+    </script>
+</body>
+</html>

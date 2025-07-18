@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신청 완료 - 서울오빠</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Thank You Section */
+        .thank-you-section {
+            background: linear-gradient(135deg, #FFF0F0 0%, #FFDADA 100%);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .thank-you-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .thank-you-main {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .thank-you-sub {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        /* Social Proof Section */
+        .social-proof-section {
+            padding: 80px 0;
+            background: #FAFAFA;
+        }
+
+        .social-proof-section h2 {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+
+        .success-stories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .story-content {
+            padding: 20px;
+        }
+
+        .story-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .story-link {
+            display: inline-block;
+            background: #FF7043;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .story-link:hover {
+            background: #E64A19;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Campaign Carousel Section */
+        .campaign-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .campaign-section h2 {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .campaign-card {
+            min-width: 300px;
+            margin-right: 20px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .campaign-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: #F5F5F5;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .campaign-tags {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .campaign-tag {
+            background: rgba(255,255,255,0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            display: inline-block;
+        }
+
+        .campaign-content {
+            padding: 20px;
+        }
+
+        .campaign-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .campaign-benefit {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .campaign-status {
+            font-size: 14px;
+            color: #FF7043;
+            font-weight: 500;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #DDD;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+            transition: background 0.3s;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+        }
+
+        .carousel-nav.prev {
+            left: -20px;
+        }
+
+        .carousel-nav.next {
+            right: -20px;
+        }
+
+        /* Partner Section */
+        .partner-section {
+            padding: 80px 0;
+            background: #FFF9F2;
+            text-align: center;
+        }
+
+        .partner-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .partner-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .thank-you-section {
+                padding: 60px 0;
+            }
+
+            .thank-you-icon {
+                font-size: 60px;
+                margin-bottom: 20px;
+            }
+
+            .thank-you-main {
+                font-size: 24px;
+            }
+
+            .success-stories {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .campaign-card {
+                min-width: 280px;
+            }
+
+            .carousel-nav {
+                display: none;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Thank You Section -->
+    <section class="thank-you-section">
+        <div class="container">
+            <span class="thank-you-icon">✅</span>
+            <h1 class="thank-you-main">문의해주셔서 감사합니다.</h1>
+            <p class="thank-you-sub">공방 분야 담당자가 곧 연락드리겠습니다.</p>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof-section">
+        <div class="container">
+            <h2>실제 후기사례</h2>
+            <div class="success-stories">
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('images/테라리움.png');"></div>
+                    <div class="story-content">
+                        <div class="story-title">나만의 미니정원 만들기 '테라리움'원데이 클래스 [시흥]그린밤베어</div>
+                        <a href="https://blog.naver.com/w90414/223935026099" target="_blank" class="story-link">블로그 후기보기</a>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('images/가치파인더.png');"></div>
+                    <div class="story-content">
+                        <div class="story-title">반짝반짝 빛나는 당신의 가치를 찾아드립니다 1인 퍼스널컬러 컨설팅 제공 [부천] 가치파인더 방문형 뷰티/패션</div>
+                        <a href="https://blog.naver.com/byriverkim/223883266387" target="_blank" class="story-link">블로그 후기보기</a>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('images/체험단후기(1).png');"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campaign Carousel Section -->
+    <section class="campaign-section">
+        <div class="container">
+            <h2>잠깐! 이런 체험단 캠페인은 어떠세요?</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <!-- Campaign Card 1 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/발삼1.jpg'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">방문형</span>
+                                <span class="campaign-tag">주말</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[제주] 나만의 향수 만들기 원데이클래스</div>
+                            <div class="campaign-benefit">5만원 상당 향수 원데이 클래스 체험권</div>
+                            <div class="campaign-status">신청 3 / 모집 1</div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Card 2 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/DIY향수.png'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">배송형</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[남양주] 나만의 향수 만들기 DIY 클래스</div>
+                            <div class="campaign-benefit">15ml DIY 향수 클래스</div>
+                            <div class="campaign-status">신청 4 / 모집 1</div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Card 3 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/가죽.png'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">방문형</span>
+                                <span class="campaign-tag">평일</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[부산] 가죽공예 지갑 만들기 체험</div>
+                            <div class="campaign-benefit">4만원 상당의 가죽지갑,키링 원데이클래스제공</div>
+                            <div class="campaign-status">신청 1 / 모집 1</div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Card 4 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/베이글.png'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">방문형</span>
+                                <span class="campaign-tag">주말</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[은평구] 베이킹 클래스 - 블루베리베이글 만들기</div>
+                            <div class="campaign-benefit">55,000원 상당 베이킹 체험</div>
+                            <div class="campaign-status">신청 29 / 모집 1</div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Card 5 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/하바리움.png'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">방문형</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[영등포] 하바리움 만들기 원데이클래스</div>
+                            <div class="campaign-benefit">하바리움 원데이클래스</div>
+                            <div class="campaign-status">신청 129 / 모집 6</div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Card 6 -->
+                    <div class="campaign-card">
+                        <div class="campaign-thumbnail" style="background-image: url('images/세라듀.png'); background-size: cover; background-position: center;">
+                            <div class="campaign-tags">
+                                <span class="campaign-tag">방문형</span>
+                                <span class="campaign-tag">평일</span>
+                            </div>
+                        </div>
+                        <div class="campaign-content">
+                            <div class="campaign-title">[서울/강남] 도자기 공예 원데이클래스</div>
+                            <div class="campaign-benefit">14만원 상당 2인 도예공방 원데이클래스</div>
+                            <div class="campaign-status">신청 122 / 모집 55</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="carousel-nav prev" onclick="moveCarousel(-1)">◀</button>
+                <button class="carousel-nav next" onclick="moveCarousel(1)">▶</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Section -->
+    <section class="partner-section">
+        <div class="container">
+            <h2>30,000곳의 파트너가 서울오빠와 함께합니다.</h2>
+            <img src="images/14.png" alt="파트너사 현황" class="partner-image">
+        </div>
+    </section>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const carouselWrapper = document.getElementById('carouselWrapper');
+        const cards = document.querySelectorAll('.campaign-card');
+        const totalCards = cards.length;
+        const cardWidth = 320; // card width + margin
+
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            
+            // Loop back to beginning/end
+            if (currentSlide < 0) {
+                currentSlide = totalCards - 3; // Show last 3 cards
+            } else if (currentSlide > totalCards - 3) {
+                currentSlide = 0;
+            }
+            
+            const translateX = -currentSlide * cardWidth;
+            carouselWrapper.style.transform = `translateX(${translateX}px)`;
+        }
+
+        // Auto-play carousel
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let isDragging = false;
+
+        carouselWrapper.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        carouselWrapper.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+
+        carouselWrapper.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    moveCarousel(1); // Swipe left - next
+                } else {
+                    moveCarousel(-1); // Swipe right - previous
+                }
+            }
+            
+            isDragging = false;
+        });
+    </script>
+</body>
+</html>

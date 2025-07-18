@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Fix Test</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2d3748;
+        }
+        
+        /* Copy the relevant CSS from index-new.html */
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-color: #4F46E5;
+        }
+
+        .solution-preview {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .problem-card.active .solution-preview {
+            top: 0;
+            opacity: 1;
+        }
+        
+        /* THE FIX: Only fade direct child p elements */
+        .problem-card.active > p {
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .solution-preview h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+        }
+        
+        /* THE FIX: Ensure solution text is always fully opaque */
+        .solution-preview p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #FFFFFF;
+            opacity: 1; /* Explicitly set opacity to 1 */
+        }
+
+        .problem-icon {
+            font-size: 60px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .problem-card > p {
+            font-size: 18px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .test-button {
+            background: #4F46E5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .status.normal {
+            background: #e6fffa;
+            color: #234e52;
+            border: 1px solid #81e6d9;
+        }
+        
+        .status.active {
+            background: #fef5e7;
+            color: #744210;
+            border: 1px solid #f6e05e;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">CSS Inheritance Fix Test</h1>
+        
+        <div class="status normal" id="status">
+            Status: Normal state - Problem text should be fully visible
+        </div>
+        
+        <button class="test-button" onclick="toggleCard()">Toggle Active State</button>
+        <button class="test-button" onclick="resetCard()">Reset</button>
+        
+        <div class="problem-card" id="testCard">
+            <span class="problem-icon">🤔</span>
+            <p>This is the problem description text.<br>It should fade when active.</p>
+            <div class="solution-preview">
+                <h4>✅ Solution</h4>
+                <p>This is the solution text. It should ALWAYS remain fully visible and white, even when the card is active.</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Click "Toggle Active State" to activate the card</li>
+                <li>Verify that the problem description (above) becomes faded (opacity 0.4)</li>
+                <li>Verify that the solution text remains fully visible and white</li>
+                <li>Click "Reset" to return to normal state</li>
+            </ol>
+            
+            <h3>Expected Behavior:</h3>
+            <ul>
+                <li><strong>Normal state:</strong> Problem text fully visible, solution hidden</li>
+                <li><strong>Active state:</strong> Problem text faded, solution fully visible with white text</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('testCard');
+        const status = document.getElementById('status');
+        
+        function toggleCard() {
+            card.classList.toggle('active');
+            updateStatus();
+        }
+        
+        function resetCard() {
+            card.classList.remove('active');
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            if (card.classList.contains('active')) {
+                status.textContent = 'Status: Active state - Problem text should be faded, solution text should be fully visible';
+                status.className = 'status active';
+            } else {
+                status.textContent = 'Status: Normal state - Problem text should be fully visible';
+                status.className = 'status normal';
+            }
+        }
+    </script>
+</body>
+</html>

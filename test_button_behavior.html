@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Button Behavior</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-color: #4F46E5;
+        }
+
+        .solution-preview {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .problem-card.active .solution-preview {
+            top: 0;
+            opacity: 1;
+        }
+
+        .problem-card.active p {
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .solution-preview h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .solution-preview p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #FFFFFF;
+        }
+
+        .problem-icon {
+            font-size: 60px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .problem-card p {
+            font-size: 18px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .test-info {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #4F46E5;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h2>Button Behavior Test</h2>
+        <p><strong>Current Issues to Verify:</strong></p>
+        <ul>
+            <li>Solution description text may be hard to read on purple background</li>
+            <li>Problem text doesn't change when solution is expanded</li>
+        </ul>
+        <p><strong>Expected Changes:</strong></p>
+        <ul>
+            <li>Solution description should be bright white (#FFFFFF)</li>
+            <li>Problem text should become lighter/transparent when expanded</li>
+            <li>Problem text should restore to original color when collapsed</li>
+        </ul>
+    </div>
+
+    <div class="problem-card" onclick="toggleSolution(this)">
+        <span class="problem-icon">🤔</span>
+        <p>"나도 후기 남기고 싶지만<br>마케팅은 잘 몰라요."</p>
+        <div class="solution-preview">
+            <h4>✅ 해결책</h4>
+            <p>전문 인플루언서가 직접 체험하고 고품질 후기를 작성해드립니다. 마케팅 지식 없이도 자동으로 노출됩니다.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(card) {
+            // Close all other cards (not needed for single card test)
+            document.querySelectorAll('.problem-card').forEach(c => {
+                if (c !== card) c.classList.remove('active');
+            });
+            // Toggle current card
+            card.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울오빠 - 공방 체험단 모집</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #E8EFF8 0%, #FCEAE8 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        /* Problem Section */
+        .problems {
+            padding: 80px 0;
+            background: #FAFAFA;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .problem-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .problem-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .solution h2 {
+            text-align: center;
+            font-size: 29px;
+            margin-bottom: 50px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .solution-highlight {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8E7CC3;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .checklist {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .checklist li {
+            font-size: 17px;
+            margin-bottom: 15px;
+            list-style: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #8E7CC3;
+            font-weight: bold;
+        }
+
+        .solution-footer {
+            text-align: center;
+            font-size: 17px;
+            color: #8E7CC3;
+            font-weight: 500;
+        }
+
+        /* Data Section */
+        .data {
+            padding: 80px 0;
+            background: #FFF9F2;
+        }
+
+        .data h2 {
+            text-align: center;
+            font-size: 29px;
+            margin-bottom: 50px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .data-points {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .data-point {
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #8E7CC3;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .reviews h2 {
+            text-align: center;
+            font-size: 29px;
+            margin-bottom: 50px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .reviews-slider {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+
+        .review-card {
+            min-width: 300px;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .review-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: #F5F5F5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .review-caption {
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .review-btn {
+            background: #8E7CC3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #E8EFF8 0%, #F0E6F7 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            margin-bottom: 30px;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .cta-button {
+            background: #8E7CC3;
+            color: #FFFFFF;
+            border: none;
+            width: 100%;
+            max-width: 400px;
+            height: 48px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #7B68B6;
+        }
+
+        /* Footer Section */
+        .footer {
+            padding: 80px 0;
+            background: #FAFAFA;
+        }
+
+        .footer h2 {
+            text-align: center;
+            font-size: 29px;
+            margin-bottom: 50px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .faq {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #E0E0E0;
+            margin-bottom: 10px;
+        }
+
+        .faq-question {
+            background: white;
+            border: none;
+            width: 100%;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            background: #F9F9F9;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 20px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #DDD;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #8E7CC3;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .solution-highlight {
+                font-size: 18px;
+            }
+
+            .reviews-slider {
+                gap: 15px;
+            }
+
+            .review-card {
+                min-width: 250px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>우리 공방, 요즘 블로그/인스타 검색에<br>왜 안 보일까요?</h1>
+            <p>신규 고객도, 체험 문의도… 이제 내가 먼저 나서야 할 때!</p>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 29px; margin-bottom: 20px;">이런 고민, 혹시 있으신가요?</h2>
+            <div class="problems-grid">
+                <div class="problem-item">
+                    <span class="problem-icon">🤔</span>
+                    <p>"나도 후기 남기고 싶지만<br>마케팅은 잘 몰라요."</p>
+                </div>
+                <div class="problem-item">
+                    <span class="problem-icon">💸</span>
+                    <p>"재료비만 나가고<br>별 도움 안 될까 봐 겁나요."</p>
+                </div>
+                <div class="problem-item">
+                    <span class="problem-icon">📞</span>
+                    <p>"직접 섭외해봤는데 '안 합니다' 하고<br>끊는 경우 많아요.😥"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2>이제 걱정 마세요!</h2>
+            <div class="solution-highlight">
+                ✅ 사장님이 준비하실 건 단 하나, "체험용 제품 또는 클래스"
+            </div>
+            <ul class="checklist">
+                <li>후기는 인플루언서가 남깁니다.</li>
+                <li>노출은 블로그/인스타 인기글로 올라갑니다.</li>
+                <li>검색은 [지역+원데이클래스], [지역+실내데이트] 등 키워드로 이뤄집니다.</li>
+            </ul>
+            <div class="solution-footer">
+                👉 후기 보고 실제 수업 문의까지 연결된 사례, 많습니다!
+            </div>
+            
+            <!-- First CTA Button -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="cta-button" onclick="scrollToContact()">체험단 연결 요청하기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Section -->
+    <section class="data">
+        <div class="container">
+            <h2>데이터로 증명하는 효과</h2>
+            <div class="data-points">
+                <div class="data-point">
+                    <strong>📊 키워드:</strong> 실제로 '향수공방' 키워드는 12~2월 검색량이 가장 높고,
+                </div>
+                <div class="data-point">
+                    <strong>🎯 타겟:</strong> '30대 여성'이 주 구매층입니다.
+                </div>
+                <div class="data-point">
+                    <strong>📈 성과:</strong> 우리가 연결하는 체험단은 이 타겟층과 딱 맞는 후기 크리에이터!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <div class="container">
+            <h2>실제 후기 사례</h2>
+            <div class="reviews-slider">
+                <div class="review-card">
+                    <div class="review-thumbnail" style="background-image: url('images/뤼미에르1.jpg');"></div>
+                    <div class="review-caption">"인생 최고 향수공방 체험하고 왔다!"</div>
+                    <button class="review-btn" onclick="window.open('https://blog.naver.com/rmh5013/223934779824?trackingCode=blog_bloghome_searchlist', '_blank')">블로그 후기 보기</button>
+                </div>
+                <div class="review-card">
+                    <div class="review-thumbnail" style="background-image: url('images/쿠옴1.jpg');"></div>
+                    <div class="review-caption">"가죽공방에서 만든 지갑, 너무 만족해요!"</div>
+                    <button class="review-btn" onclick="window.open('https://blog.naver.com/bara1929/223810368906', '_blank')">블로그 후기 보기</button>
+                </div>
+                <div class="review-card">
+                    <div class="review-thumbnail" style="background-image: url('images/띠레1.jpg');"></div>
+                    <div class="review-caption">"베이킹 클래스 후기 - 내가 만든 블루베리베이글!"</div>
+                    <button class="review-btn" onclick="window.open('https://blog.naver.com/7832902/223170221320', '_blank')">블로그 후기 보기</button>
+                </div>
+                <div class="review-card">
+                    <div class="review-thumbnail" style="background-image: url('images/세라듀1.jpg');"></div>
+                    <div class="review-caption">"도자기 만들기, 생각보다 재밌어요"</div>
+                    <button class="review-btn" onclick="window.open('https://blog.naver.com/juju1456/223916625929', '_blank')">블로그 후기 보기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <p>🎁 7월 체험단 매칭은 '수업에 자신있는' 공방 우선 모집 중</p>
+                <p>👉 사장님, 상담이 필요하신가요?</p>
+                <p>📍 자세한 설명 듣고 싶으시면 하단 버튼 눌러주세요!</p>
+            </div>
+            <button class="cta-button" onclick="scrollToContact()">체험단 연결 요청하기</button>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="footer" id="contact">
+        <div class="container">
+            <h2>자주 묻는 질문</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 비용이 드나요?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>체험단 모집 서비스는 모집 건당 33,000원입니다.(vat 10% 포함)</p>
+                        <p>사장님께서는 체험용 제품이나 클래스만 제공해주시면 됩니다. 이외 별도의 마케팅 비용은 발생하지 않습니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 어떤 체험단이 오나요?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>블로그, 인스타그램 등에서 활동하는 인플루언서들로 구성되어 있습니다. 특히 30대 여성층이 주를 이루며, 각 공방의 특성에 맞는 타겟층으로 매칭해드립니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 효과 없으면 어쩌죠?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>체험단 활동 후 블로그 포스팅과 SNS 업로드를 확인해드립니다. 만약 약속된 후기가 올라오지 않을 경우, 추가 체험단을 무료로 연결해드립니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="text-align: center; margin-bottom: 30px; color: #333;">체험단 연결 신청하기</h3>
+                <form id="contactForm" action="https://docs.google.com/forms/u/0/d/1ac77EXoPPFE4547uBLkFTjlynlBKxGZnEz1137pDCxc/formResponse" method="POST">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="entry.546812114" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workshop">공방명</label>
+                        <input type="text" id="workshop" name="entry.823963274" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처</label>
+                        <input type="tel" id="phone" name="entry.603867315" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="entry.1117575621" placeholder="예: example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">공방 위치</label>
+                        <input type="text" id="location" name="entry.206001980" placeholder="예: 서울시 강남구" required>
+                    </div>
+                    <button type="submit" class="cta-button">신청하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // FAQ Toggle Function
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('span');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                icon.textContent = '+';
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-question span').forEach(item => {
+                    item.textContent = '+';
+                });
+                
+                // Open current FAQ
+                answer.classList.add('active');
+                icon.textContent = '-';
+            }
+        }
+
+        // Scroll to Contact Function
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Form submission handler with redirect to thank-you page
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Submit to Google Forms in background
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Required for Google Forms
+            }).then(() => {
+                // Redirect to thank-you page after submission
+                window.location.href = 'thank-you.html';
+            }).catch(() => {
+                // Even if there's an error, redirect to thank-you page
+                // Google Forms with no-cors mode always "fails" but data is still submitted
+                window.location.href = 'thank-you.html';
+            });
+        });
+
+        // Smooth scrolling for review slider on mobile
+        const slider = document.querySelector('.reviews-slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>

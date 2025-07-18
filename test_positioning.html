@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Bottom Right Positioning</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* Make page scrollable to test positioning */
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+        }
+        
+        .test-form {
+            max-width: 400px;
+            width: 400px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .content {
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+        
+        @media (max-width: 768px) {
+            .test-form {
+                max-width: 320px;
+                width: 320px;
+                right: 10px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Testing Bottom-Right Positioning</h1>
+        <p>This page tests the bottom-right positioning of the form element.</p>
+        <p>The form should appear at the bottom-right corner of the screen, not vertically centered.</p>
+        <p>Scroll down to see if the form stays in the bottom-right position...</p>
+        <br><br><br><br><br><br><br><br><br><br>
+        <p>More content to test scrolling...</p>
+        <br><br><br><br><br><br><br><br><br><br>
+        <p>Even more content...</p>
+    </div>
+    
+    <div class="test-form">
+        <h3>🚀 체험단 연결 신청하기</h3>
+        <p>This form is now positioned at the bottom-right corner!</p>
+    </div>
+</body>
+</html>
