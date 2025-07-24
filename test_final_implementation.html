@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Implementation Test</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .test-section h3 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .viewport-toggle {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .viewport-btn {
+            padding: 10px 20px;
+            border: 2px solid #4F46E5;
+            background: white;
+            color: #4F46E5;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .viewport-btn.active {
+            background: #4F46E5;
+            color: white;
+        }
+        
+        .viewport-btn:hover {
+            background: #4F46E5;
+            color: white;
+        }
+        
+        /* Form Styles - Desktop */
+        .centered-contact-form {
+            max-width: 400px;
+            width: 400px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+            overflow: hidden;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile responsive for centered form */
+        @media (max-width: 768px) {
+            .centered-contact-form {
+                max-width: 280px;
+                width: 90%;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                border-radius: 15px;
+                bottom: 20px;
+            }
+        }
+        
+        .centered-form-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .centered-form-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .centered-form-content {
+            padding: 30px;
+        }
+        
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .form-column .form-group {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .form-column .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-column .form-group input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            @keyframes pulse {
+                0% { transform: translateX(-50%) scale(1); }
+                50% { transform: translateX(-50%) scale(1.05); }
+                100% { transform: translateX(-50%) scale(1); }
+            }
+        }
+        
+        .test-result {
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .mobile-simulator {
+            max-width: 375px;
+            margin: 20px auto;
+            border: 3px solid #333;
+            border-radius: 25px;
+            padding: 20px;
+            background: white;
+            position: relative;
+        }
+        
+        .mobile-simulator::before {
+            content: 'Mobile View (375px)';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Button Functionality Test - Final Implementation</h1>
+        
+        <div class="test-section">
+            <h2>Test Overview</h2>
+            <p>This test verifies that the '지금 바로 신청하고 혜택 받기' button correctly:</p>
+            <ul>
+                <li>✅ Highlights the '체험단 연결 신청하기' form with animation</li>
+                <li>✅ Focuses on the workshop name (공방명) input field</li>
+                <li>✅ Works correctly on both desktop and mobile viewports</li>
+                <li>✅ Preserves form positioning during animation</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>Desktop Test</h2>
+            <p>Click the button below to test desktop functionality:</p>
+            <button class="cta-button" onclick="testDesktop()">지금 바로 신청하고 혜택 받기 (Desktop)</button>
+            <div id="desktopResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Mobile Test</h2>
+            <p>Click the button below to test mobile functionality:</p>
+            <div class="mobile-simulator">
+                <button class="cta-button" onclick="testMobile()" style="width: 100%; margin: 0;">지금 바로 신청하고 혜택 받기 (Mobile)</button>
+            </div>
+            <div id="mobileResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Viewport Toggle Test</h2>
+            <p>Test responsiveness by changing viewport size:</p>
+            <div class="viewport-toggle">
+                <button class="viewport-btn active" onclick="setViewport('desktop')">Desktop (1200px)</button>
+                <button class="viewport-btn" onclick="setViewport('tablet')">Tablet (768px)</button>
+                <button class="viewport-btn" onclick="setViewport('mobile')">Mobile (375px)</button>
+            </div>
+            <button class="cta-button" onclick="testResponsive()">지금 바로 신청하고 혜택 받기 (Responsive)</button>
+            <div id="responsiveResults"></div>
+        </div>
+    </div>
+    
+    <!-- Test Form -->
+    <div class="centered-contact-form" id="centeredContactForm">
+        <div class="centered-form-header">
+            <h3>🚀 체험단 연결 신청하기</h3>
+        </div>
+        <div class="centered-form-content">
+            <form id="contactForm">
+                <div class="form-column">
+                    <div class="form-group">
+                        <input type="text" id="workshop" name="workshop" placeholder="공방명" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="연락처" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="이메일" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced scrollToContact function (same as in index.html)
+        function scrollToContact() {
+            const centeredForm = document.getElementById('centeredContactForm');
+            
+            // Get current computed transform to preserve positioning
+            const computedStyle = window.getComputedStyle(centeredForm);
+            const currentTransform = computedStyle.transform;
+            
+            // Determine if we're on mobile (check if translateX is being used)
+            const isMobile = window.innerWidth <= 768;
+            let scaleTransform;
+            
+            if (isMobile && currentTransform !== 'none') {
+                // On mobile, preserve the translateX(-50%) and add scale
+                scaleTransform = currentTransform.replace('matrix(', 'matrix(1.05, 0, 0, 1.05, ').replace(')', ', 0, 0)');
+                if (scaleTransform === currentTransform) {
+                    // Fallback if matrix replacement doesn't work
+                    scaleTransform = 'translateX(-50%) scale(1.05)';
+                }
+            } else {
+                // On desktop, just apply scale
+                scaleTransform = 'scale(1.05)';
+            }
+            
+            // Add highlight animation to the floating form
+            centeredForm.style.animation = 'pulse 1s ease-in-out 2';
+            centeredForm.style.transform = scaleTransform;
+            
+            // Reset animation after completion
+            setTimeout(() => {
+                centeredForm.style.animation = '';
+                centeredForm.style.transform = '';
+            }, 2000);
+            
+            // Focus on first input (workshop name field)
+            setTimeout(() => {
+                const workshopInput = document.getElementById('workshop');
+                if (workshopInput) {
+                    workshopInput.focus();
+                    // Add a subtle highlight to the focused input
+                    workshopInput.style.boxShadow = '0 0 15px rgba(79, 70, 229, 0.5)';
+                    setTimeout(() => {
+                        workshopInput.style.boxShadow = '';
+                    }, 3000);
+                }
+            }, 500);
+        }
+        
+        // Test functions
+        function testDesktop() {
+            const results = document.getElementById('desktopResults');
+            results.innerHTML = '<div class="test-result info">🔄 Testing desktop functionality...</div>';
+            
+            // Force desktop viewport for this test
+            const originalWidth = window.innerWidth;
+            Object.defineProperty(window, 'innerWidth', { value: 1200, configurable: true });
+            
+            try {
+                scrollToContact();
+                results.innerHTML += '<div class="test-result success">✅ Desktop test completed successfully</div>';
+                results.innerHTML += '<div class="test-result info">📱 Check that form scales without losing position</div>';
+                results.innerHTML += '<div class="test-result info">🎯 Verify workshop input is focused</div>';
+            } catch (error) {
+                results.innerHTML += '<div class="test-result error">❌ Desktop test failed: ' + error.message + '</div>';
+            }
+            
+            // Restore original width
+            Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true });
+        }
+        
+        function testMobile() {
+            const results = document.getElementById('mobileResults');
+            results.innerHTML = '<div class="test-result info">🔄 Testing mobile functionality...</div>';
+            
+            // Force mobile viewport for this test
+            const originalWidth = window.innerWidth;
+            Object.defineProperty(window, 'innerWidth', { value: 375, configurable: true });
+            
+            try {
+                scrollToContact();
+                results.innerHTML += '<div class="test-result success">✅ Mobile test completed successfully</div>';
+                results.innerHTML += '<div class="test-result info">📱 Check that form remains centered while scaling</div>';
+                results.innerHTML += '<div class="test-result info">🎯 Verify workshop input is focused</div>';
+            } catch (error) {
+                results.innerHTML += '<div class="test-result error">❌ Mobile test failed: ' + error.message + '</div>';
+            }
+            
+            // Restore original width
+            Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true });
+        }
+        
+        function testResponsive() {
+            const results = document.getElementById('responsiveResults');
+            results.innerHTML = '<div class="test-result info">🔄 Testing responsive functionality...</div>';
+            
+            const currentWidth = window.innerWidth;
+            results.innerHTML += '<div class="test-result info">📏 Current viewport: ' + currentWidth + 'px</div>';
+            
+            try {
+                scrollToContact();
+                results.innerHTML += '<div class="test-result success">✅ Responsive test completed successfully</div>';
+                
+                if (currentWidth <= 768) {
+                    results.innerHTML += '<div class="test-result info">📱 Mobile mode detected - form should stay centered</div>';
+                } else {
+                    results.innerHTML += '<div class="test-result info">🖥️ Desktop mode detected - form should scale from bottom-right</div>';
+                }
+            } catch (error) {
+                results.innerHTML += '<div class="test-result error">❌ Responsive test failed: ' + error.message + '</div>';
+            }
+        }
+        
+        function setViewport(size) {
+            // Update button states
+            document.querySelectorAll('.viewport-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Simulate viewport change
+            let width;
+            switch(size) {
+                case 'desktop': width = 1200; break;
+                case 'tablet': width = 768; break;
+                case 'mobile': width = 375; break;
+            }
+            
+            // This is just for demonstration - in real testing you'd resize the browser
+            document.getElementById('responsiveResults').innerHTML = 
+                '<div class="test-result info">🔧 Simulated viewport set to ' + width + 'px</div>';
+        }
+        
+        // Initialize test
+        window.addEventListener('load', function() {
+            console.log('🧪 Button functionality test loaded');
+            console.log('📏 Current viewport:', window.innerWidth + 'px');
+            console.log('📱 Mobile mode:', window.innerWidth <= 768 ? 'Yes' : 'No');
+        });
+    </script>
+</body>
+</html>

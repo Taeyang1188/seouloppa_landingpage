@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Functionality Test</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .centered-contact-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4ECDC4;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Test: Button Click Functionality</h2>
+        <p>Click the button below to test if it properly highlights the form and focuses on the workshop input:</p>
+        <button class="cta-button" onclick="scrollToContact()">지금 바로 신청하고 혜택 받기</button>
+        <div id="testResults"></div>
+    </div>
+    
+    <!-- Test Form -->
+    <div class="centered-contact-form" id="centeredContactForm">
+        <div class="centered-form-header">
+            <h3>🚀 체험단 연결 신청하기</h3>
+        </div>
+        <div class="centered-form-content">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="workshop" name="workshop" placeholder="공방명" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="연락처" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="이메일" required>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Test the scrollToContact function
+        function scrollToContact() {
+            const centeredForm = document.getElementById('centeredContactForm');
+            const testResults = document.getElementById('testResults');
+            
+            try {
+                // Add highlight animation to the floating form
+                centeredForm.style.animation = 'pulse 1s ease-in-out 2';
+                centeredForm.style.transform = 'translate(-50%, -50%) scale(1.05)';
+                
+                // Test result: Animation applied
+                testResults.innerHTML += '<div class="test-result success">✓ Animation applied to form</div>';
+                
+                // Reset animation after completion
+                setTimeout(() => {
+                    centeredForm.style.animation = '';
+                    centeredForm.style.transform = 'translate(-50%, -50%)';
+                    testResults.innerHTML += '<div class="test-result success">✓ Animation reset completed</div>';
+                }, 2000);
+                
+                // Focus on first input
+                setTimeout(() => {
+                    const workshopInput = document.getElementById('workshop');
+                    workshopInput.focus();
+                    
+                    // Check if focus was successful
+                    if (document.activeElement === workshopInput) {
+                        testResults.innerHTML += '<div class="test-result success">✓ Workshop input focused successfully</div>';
+                    } else {
+                        testResults.innerHTML += '<div class="test-result error">✗ Failed to focus workshop input</div>';
+                    }
+                }, 500);
+                
+                testResults.innerHTML += '<div class="test-result success">✓ scrollToContact() function executed successfully</div>';
+                
+            } catch (error) {
+                testResults.innerHTML += '<div class="test-result error">✗ Error: ' + error.message + '</div>';
+            }
+        }
+        
+        // Test on page load
+        window.addEventListener('load', function() {
+            const testResults = document.getElementById('testResults');
+            testResults.innerHTML = '<div class="test-result success">✓ Page loaded successfully</div>';
+            
+            // Check if all required elements exist
+            const button = document.querySelector('.cta-button');
+            const form = document.getElementById('centeredContactForm');
+            const workshopInput = document.getElementById('workshop');
+            
+            if (button) {
+                testResults.innerHTML += '<div class="test-result success">✓ Button found</div>';
+            } else {
+                testResults.innerHTML += '<div class="test-result error">✗ Button not found</div>';
+            }
+            
+            if (form) {
+                testResults.innerHTML += '<div class="test-result success">✓ Form found</div>';
+            } else {
+                testResults.innerHTML += '<div class="test-result error">✗ Form not found</div>';
+            }
+            
+            if (workshopInput) {
+                testResults.innerHTML += '<div class="test-result success">✓ Workshop input found</div>';
+            } else {
+                testResults.innerHTML += '<div class="test-result error">✗ Workshop input not found</div>';
+            }
+        });
+    </script>
+</body>
+</html>

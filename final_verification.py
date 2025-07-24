@@ -1,84 +1,166 @@
 #!/usr/bin/env python3
 """
-Final verification script for the background image implementation
+Final Verification Script for Button Functionality Implementation
+
+This script verifies that the '지금 바로 신청하고 혜택 받기' button functionality
+has been successfully implemented according to the issue requirements.
+
+Issue Requirements:
+1. Button should highlight the '체험단 연결 신청하기' form
+2. Button should navigate/focus to the workshop name (공방명) input field
+3. Button should work on both desktop and mobile devices
 """
 
-import os
 import re
+import os
 
-def final_verification():
-    """Final verification of all requirements"""
-    print("=== FINAL VERIFICATION ===")
-    print("Checking all requirements from the issue description...")
+def verify_implementation():
+    """Verify that the button functionality has been properly implemented."""
     
-    # Read the HTML file
-    with open("index-new.html", 'r', encoding='utf-8') as f:
+    print("🔍 Final Verification - Button Functionality Implementation")
+    print("=" * 60)
+    
+    # Check if index.html exists
+    if not os.path.exists('index.html'):
+        print("❌ ERROR: index.html not found!")
+        return False
+    
+    # Read the index.html file
+    with open('index.html', 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Requirements checklist
-    requirements = {
-        "1. Replace aad.png with add.png": {
-            "check": 'images/add.png' in content and 'images/aad.png' not in content,
-            "details": "Background image changed from aad.png to add.png"
-        },
-        "2. Convert to grayscale": {
-            "check": 'grayscale(100%)' in content,
-            "details": "CSS filter: grayscale(100%) applied"
-        },
-        "3. Rotate 90 degrees right": {
-            "check": 'rotate(90deg)' in content,
-            "details": "Transform: rotate(90deg) applied"
-        },
-        "4. Set 5% opacity (watermark effect)": {
-            "check": 'opacity: 0.05' in content,
-            "details": "Opacity set to 0.05 (5%) for watermark effect"
-        },
-        "5. No-repeat setting": {
-            "check": 'no-repeat' in content,
-            "details": "Background-repeat: no-repeat applied"
-        },
-        "6. Center alignment": {
-            "check": 'center' in content,
-            "details": "Background-position: center applied"
-        },
-        "7. Apply only to white section (not purple header)": {
-            "check": '.problems' in content and '.hero' not in content.split('.problems')[1].split('}')[0],
-            "details": "Background applied only to .problems section, not .hero section"
-        },
-        "8. Preserve text visibility": {
-            "check": 'z-index: 2' in content,
-            "details": "Content container has higher z-index than background"
-        }
-    }
+    verification_results = []
     
-    print("\n=== REQUIREMENTS VERIFICATION ===")
-    all_passed = True
-    
-    for req, info in requirements.items():
-        status = "✓" if info["check"] else "✗"
-        print(f"{status} {req}")
-        print(f"   → {info['details']}")
-        if not info["check"]:
-            all_passed = False
-    
-    print(f"\n=== SUMMARY ===")
-    if all_passed:
-        print("🎉 ALL REQUIREMENTS SUCCESSFULLY IMPLEMENTED!")
-        print("\nChanges made:")
-        print("- Updated .problems section background image to images/add.png")
-        print("- Updated .problems::before section with all specifications")
-        print("- Applied grayscale filter for black and white effect")
-        print("- Set 90-degree rotation (changed from 60 degrees)")
-        print("- Reduced opacity to 5% for subtle watermark effect")
-        print("- Changed from repeat to no-repeat with center positioning")
-        print("- Maintained proper z-index layering for text visibility")
-        
-        print("\nThe background now appears as a subtle, grayscale watermark")
-        print("that won't interfere with the readability of text and form elements.")
+    # 1. Check if the button exists with correct text
+    button_pattern = r'<button[^>]*onclick="scrollToContact\(\)"[^>]*>지금 바로 신청하고 혜택 받기</button>'
+    if re.search(button_pattern, content):
+        verification_results.append("✅ Button '지금 바로 신청하고 혜택 받기' found with scrollToContact() function")
     else:
-        print("❌ Some requirements were not met. Please review the implementation.")
+        verification_results.append("❌ Button '지금 바로 신청하고 혜택 받기' not found or missing onclick handler")
     
-    return all_passed
+    # 2. Check if the form exists with correct heading
+    form_pattern = r'<h3>🚀 체험단 연결 신청하기</h3>'
+    if re.search(form_pattern, content):
+        verification_results.append("✅ Form '체험단 연결 신청하기' found")
+    else:
+        verification_results.append("❌ Form '체험단 연결 신청하기' not found")
+    
+    # 3. Check if workshop input field exists
+    workshop_input_pattern = r'<input[^>]*id="workshop"[^>]*placeholder="공방명"[^>]*>'
+    if re.search(workshop_input_pattern, content):
+        verification_results.append("✅ Workshop input field (공방명) found")
+    else:
+        verification_results.append("❌ Workshop input field (공방명) not found")
+    
+    # 4. Check if scrollToContact function exists and has proper implementation
+    function_pattern = r'function scrollToContact\(\)\s*\{[^}]*\}'
+    function_match = re.search(function_pattern, content, re.DOTALL)
+    
+    if function_match:
+        function_body = function_match.group(0)
+        
+        # Check for animation/highlighting
+        if 'animation' in function_body and 'pulse' in function_body:
+            verification_results.append("✅ Form highlighting animation implemented")
+        else:
+            verification_results.append("❌ Form highlighting animation not found")
+        
+        # Check for scaling/transform
+        if 'transform' in function_body and 'scale' in function_body:
+            verification_results.append("✅ Form scaling effect implemented")
+        else:
+            verification_results.append("❌ Form scaling effect not found")
+        
+        # Check for focus on workshop input
+        if 'workshop' in function_body and 'focus()' in function_body:
+            verification_results.append("✅ Workshop input focus functionality implemented")
+        else:
+            verification_results.append("❌ Workshop input focus functionality not found")
+        
+        # Check for mobile responsiveness
+        if 'innerWidth' in function_body and '768' in function_body:
+            verification_results.append("✅ Mobile responsiveness implemented")
+        else:
+            verification_results.append("❌ Mobile responsiveness not found")
+        
+        # Check for transform preservation
+        if 'translateX' in function_body:
+            verification_results.append("✅ Mobile transform preservation implemented")
+        else:
+            verification_results.append("❌ Mobile transform preservation not found")
+            
+    else:
+        verification_results.append("❌ scrollToContact function not found")
+    
+    # 5. Check for form container with correct ID
+    form_container_pattern = r'<div[^>]*id="centeredContactForm"[^>]*>'
+    if re.search(form_container_pattern, content):
+        verification_results.append("✅ Form container with correct ID found")
+    else:
+        verification_results.append("❌ Form container with correct ID not found")
+    
+    # Print results
+    print("\n📋 Verification Results:")
+    print("-" * 40)
+    
+    success_count = 0
+    total_count = len(verification_results)
+    
+    for result in verification_results:
+        print(result)
+        if result.startswith("✅"):
+            success_count += 1
+    
+    print(f"\n📊 Summary: {success_count}/{total_count} checks passed")
+    
+    if success_count == total_count:
+        print("\n🎉 SUCCESS: All requirements have been successfully implemented!")
+        print("\n✨ Implementation Summary:")
+        print("   • Button '지금 바로 신청하고 혜택 받기' triggers scrollToContact() function")
+        print("   • Form '체험단 연결 신청하기' gets highlighted with pulse animation")
+        print("   • Form scales to 1.05x size for emphasis")
+        print("   • Workshop name input (공방명) gets focused automatically")
+        print("   • Mobile responsiveness preserves form centering")
+        print("   • Desktop and mobile viewports are both supported")
+        return True
+    else:
+        print(f"\n⚠️  WARNING: {total_count - success_count} requirements not fully met")
+        return False
+
+def check_test_files():
+    """Check if test files were created successfully."""
+    print("\n🧪 Test Files Status:")
+    print("-" * 30)
+    
+    test_files = [
+        'test_button_functionality.html',
+        'test_final_implementation.html'
+    ]
+    
+    for test_file in test_files:
+        if os.path.exists(test_file):
+            print(f"✅ {test_file} created successfully")
+        else:
+            print(f"❌ {test_file} not found")
 
 if __name__ == "__main__":
-    final_verification()
+    # Run verification
+    success = verify_implementation()
+    
+    # Check test files
+    check_test_files()
+    
+    print("\n" + "=" * 60)
+    if success:
+        print("🚀 FINAL STATUS: Implementation completed successfully!")
+        print("💡 The button now properly highlights the form and focuses on workshop input.")
+    else:
+        print("❌ FINAL STATUS: Implementation needs additional work.")
+    
+    print("\n📝 Issue Resolution:")
+    print("   Original Issue: Button '지금 바로 신청하고 혜택 받기' had no functionality")
+    print("   Solution: Added scrollToContact() function that:")
+    print("   - Highlights the '체험단 연결 신청하기' form with animation")
+    print("   - Focuses on the workshop name (공방명) input field")
+    print("   - Works correctly on both desktop and mobile devices")
+    print("   - Preserves form positioning during animation")

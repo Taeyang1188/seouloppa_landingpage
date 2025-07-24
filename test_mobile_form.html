@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Form Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f0f0f0;
+            height: 100vh;
+        }
+        
+        /* Current mobile styling from index.html */
+        .centered-contact-form {
+            max-width: 400px;
+            width: 400px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+            overflow: hidden;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .centered-form-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .centered-form-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .centered-form-content {
+            padding: 30px;
+        }
+
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .form-column .form-group {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-column .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .emphasized-submit-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+            text-transform: none;
+            margin-top: 10px;
+        }
+        
+        /* Current mobile responsive */
+        @media (max-width: 768px) {
+            .centered-contact-form {
+                max-width: 320px;
+                width: 320px;
+                right: 10px;
+                border-radius: 15px;
+                bottom: 20px;
+            }
+            
+            .centered-form-header {
+                padding: 25px 20px 15px;
+            }
+            
+            .centered-form-header h3 {
+                font-size: 20px;
+            }
+            
+            .centered-form-content {
+                padding: 25px 20px;
+            }
+            
+            .form-column .form-group input {
+                padding: 16px 18px;
+                font-size: 15px;
+            }
+            
+            .emphasized-submit-btn {
+                padding: 18px 35px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        .test-content {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-content">
+        <h1>Mobile Form Size Test</h1>
+        <p>This page tests the current mobile form behavior.</p>
+        <p>On mobile devices, the form should appear in the bottom-right corner.</p>
+        <p>The issue is that the 320px width is too large for mobile screens.</p>
+    </div>
+
+    <!-- Current form implementation -->
+    <div class="centered-contact-form" id="centeredContactForm">
+        <div class="centered-form-header">
+            <h3>🚀 체험단 연결 신청하기</h3>
+        </div>
+        <div class="centered-form-content">
+            <form id="contactForm">
+                <div class="form-column">
+                    <div class="form-group">
+                        <input type="text" id="workshop" placeholder="공방명" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="연락처" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="이메일" required>
+                    </div>
+                    <button type="submit" class="emphasized-submit-btn">🚀 신청하기 - 지금 바로!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Issue Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            height: 200vh; /* Make page scrollable for testing */
+            background: #f0f0f0;
+        }
+
+        .test-content {
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Current mobile styling from index.html */
+        .centered-contact-form {
+            max-width: 400px;
+            width: 400px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+            overflow: hidden;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .centered-form-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .centered-form-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .centered-form-content {
+            padding: 30px;
+        }
+
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .form-column .form-group {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-column .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .emphasized-submit-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+            text-transform: none;
+            margin-top: 10px;
+        }
+
+        /* Current mobile responsive rules */
+        @media (max-width: 768px) {
+            .centered-contact-form {
+                max-width: 320px;
+                width: 320px;
+                right: 10px;
+                border-radius: 15px;
+                bottom: 20px;
+            }
+            
+            .centered-form-header {
+                padding: 25px 20px 15px;
+            }
+            
+            .centered-form-header h3 {
+                font-size: 20px;
+            }
+            
+            .centered-form-content {
+                padding: 25px 20px;
+            }
+            
+            .form-column .form-group input {
+                padding: 16px 18px;
+                font-size: 15px;
+            }
+            
+            .emphasized-submit-btn {
+                padding: 18px 35px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Test viewport indicator */
+        .viewport-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 2000;
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport-info">
+        Viewport: <span id="viewport-width"></span>px
+    </div>
+    
+    <div class="test-content">
+        <h1>Mobile Issue Test</h1>
+        <p>현재 모바일에서 '체험단 연결 신청하기' 폼이 너무 크게 표시되는 문제를 테스트합니다.</p>
+        <p>화면 크기를 조정해서 모바일 뷰(768px 이하)에서 확인해보세요.</p>
+    </div>
+
+    <!-- Current problematic form -->
+    <div class="centered-contact-form" id="centeredContactForm">
+        <div class="centered-form-header">
+            <h3>🚀 체험단 연결 신청하기</h3>
+        </div>
+        <div class="centered-form-content">
+            <form>
+                <div class="form-column">
+                    <div class="form-group">
+                        <input type="text" placeholder="공방명" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="연락처" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="이메일" required>
+                    </div>
+                    <button type="submit" class="emphasized-submit-btn">🚀 신청하기 - 지금 바로!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateViewportInfo() {
+            document.getElementById('viewport-width').textContent = window.innerWidth;
+        }
+        
+        window.addEventListener('resize', updateViewportInfo);
+        updateViewportInfo();
+    </script>
+</body>
+</html>

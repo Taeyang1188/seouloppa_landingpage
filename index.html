@@ -717,6 +717,15 @@
             50% { transform: scale(1.05); }
         }
 
+        /* Mobile-specific pulse animation that preserves translateX positioning */
+        @media (max-width: 768px) {
+            @keyframes pulse {
+                0% { transform: translateX(-50%) scale(1); }
+                50% { transform: translateX(-50%) scale(1.05); }
+                100% { transform: translateX(-50%) scale(1); }
+            }
+        }
+
         .countdown-timer {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -958,42 +967,71 @@
             height: 200px;
         }
 
-        /* Mobile responsive for centered form */
+        /* Mobile responsive for centered form - Made smaller as requested */
         @media (max-width: 768px) {
             .centered-contact-form {
-                max-width: 320px;
-                width: 320px;
-                right: 10px;
+                max-width: 260px;
+                width: 85%;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
                 border-radius: 15px;
                 bottom: 20px;
             }
             
             .centered-form-header {
-                padding: 25px 20px 15px;
+                padding: 18px 12px 10px;
             }
             
             .centered-form-header h3 {
-                font-size: 20px;
+                font-size: 17px;
             }
             
             .centered-form-content {
-                padding: 25px 20px;
+                padding: 18px 12px;
             }
             
             .form-column .form-group input {
-                padding: 16px 18px;
-                font-size: 15px;
+                padding: 12px 14px;
+                font-size: 13px;
             }
             
             .emphasized-submit-btn {
-                padding: 18px 35px;
-                font-size: 16px;
+                padding: 14px 25px;
+                font-size: 14px;
                 width: 100%;
-                max-width: 300px;
+                max-width: 230px;
             }
             
             .bottom-spacing {
                 height: 150px;
+            }
+        }
+
+        /* Extra small mobile devices - Made even smaller */
+        @media (max-width: 480px) {
+            .centered-contact-form {
+                max-width: 240px;
+                width: 80%;
+            }
+            
+            .centered-form-header h3 {
+                font-size: 15px;
+            }
+            
+            .centered-form-content {
+                padding: 15px 10px;
+            }
+            
+            .form-column .form-group input {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            
+            .emphasized-submit-btn {
+                padding: 12px 20px;
+                font-size: 13px;
+                max-width: 200px;
             }
         }
 
@@ -1458,13 +1496,95 @@
     <div class="bottom-spacing"></div>
 
     <script>
+        // Show CTA Message Function
+        function showCTAMessage(message) {
+            // Remove any existing CTA message
+            const existingMessage = document.getElementById('ctaMessage');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create CTA message element
+            const ctaMessage = document.createElement('div');
+            ctaMessage.id = 'ctaMessage';
+            ctaMessage.innerHTML = message;
+            ctaMessage.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 25px;
+                font-size: 18px;
+                font-weight: bold;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: ctaFadeIn 0.5s ease-out;
+                max-width: 300px;
+                word-wrap: break-word;
+            `;
+            
+            // Add CSS animation for the message
+            if (!document.getElementById('ctaMessageStyles')) {
+                const style = document.createElement('style');
+                style.id = 'ctaMessageStyles';
+                style.textContent = `
+                    @keyframes ctaFadeIn {
+                        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                        100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    }
+                    @keyframes ctaFadeOut {
+                        0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Add message to page
+            document.body.appendChild(ctaMessage);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                ctaMessage.style.animation = 'ctaFadeOut 0.5s ease-out';
+                setTimeout(() => {
+                    if (ctaMessage.parentNode) {
+                        ctaMessage.remove();
+                    }
+                }, 500);
+            }, 3000);
+        }
+
         // Highlight Contact Function (highlights floating form)
         function scrollToContact() {
             const centeredForm = document.getElementById('centeredContactForm');
             
+            // Get current computed transform to preserve positioning
+            const computedStyle = window.getComputedStyle(centeredForm);
+            const currentTransform = computedStyle.transform;
+            
+            // Determine if we're on mobile (check if translateX is being used)
+            const isMobile = window.innerWidth <= 768;
+            let scaleTransform;
+            
+            if (isMobile && currentTransform !== 'none') {
+                // On mobile, preserve the translateX(-50%) and add scale
+                scaleTransform = currentTransform.replace('matrix(', 'matrix(1.05, 0, 0, 1.05, ').replace(')', ', 0, 0)');
+                if (scaleTransform === currentTransform) {
+                    // Fallback if matrix replacement doesn't work
+                    scaleTransform = 'translateX(-50%) scale(1.05)';
+                }
+            } else {
+                // On desktop, just apply scale
+                scaleTransform = 'scale(1.05)';
+            }
+            
             // Add highlight animation to the floating form
             centeredForm.style.animation = 'pulse 1s ease-in-out 2';
-            centeredForm.style.transform = 'scale(1.05)';
+            centeredForm.style.transform = scaleTransform;
             
             // Reset animation after completion
             setTimeout(() => {
@@ -1472,9 +1592,21 @@
                 centeredForm.style.transform = '';
             }, 2000);
             
-            // Focus on first input
+            // Focus on first input (workshop name field) and show CTA message
             setTimeout(() => {
-                document.getElementById('workshop').focus();
+                const workshopInput = document.getElementById('workshop');
+                if (workshopInput) {
+                    workshopInput.focus();
+                    // Add a subtle highlight to the focused input
+                    workshopInput.style.boxShadow = '0 0 15px rgba(79, 70, 229, 0.5)';
+                    
+                    // Show CTA message asking to input workshop name first
+                    showCTAMessage('공방명부터 입력해주세요! 🏪✨');
+                    
+                    setTimeout(() => {
+                        workshopInput.style.boxShadow = '';
+                    }, 3000);
+                }
             }, 500);
         }
 
